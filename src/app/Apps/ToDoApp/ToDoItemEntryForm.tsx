@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Button, Box, FormControl, FormLabel, Input, VStack, HStack } from '@chakra-ui/react';
+import { Button, Box, FormControl, FormLabel, Input, VStack, HStack, NumberInput, NumberInputField } from '@chakra-ui/react';
 
-export function ToDoItemEntryForm (props: {onAdd:(title:string, priority:string)=>void}) {
+export function ToDoItemEntryForm (props: {onAdd:(title:string, priority:number)=>void}) {
     // state variables for this form
     const [title,setTitle] = useState<string>("")
     const [priority,setPriority] = useState("")
@@ -11,7 +11,9 @@ export function ToDoItemEntryForm (props: {onAdd:(title:string, priority:string)
       event.preventDefault()  // magic, sorry.
 
       if (title === '') {return}   // ignore blank button presses
-      props.onAdd(title, priority)    // tell the parent about the new item
+      if (priority === '') {return}
+
+      props.onAdd(title, Number(priority))    // tell the parent about the new item
       setTitle('')   // resetting the values redisplays the placeholder
       setPriority('')   // resetting the values redisplays the placeholder
     }
@@ -34,13 +36,14 @@ export function ToDoItemEntryForm (props: {onAdd:(title:string, priority:string)
                 })}
                 flex={2}
               />
-              <Input
-                name="priority"
+              <NumberInput
                 value={priority}
-                placeholder= 'type priority here'
-                onChange={(event => setPriority(event.target.value))}
+                onChange={(valueAsString) => setPriority(valueAsString)}
+                min={0}
                 flex={1}
-              />
+              >
+                <NumberInputField name="priority" placeholder='type priority here' />
+              </NumberInput>
               <Box flex={1} display='flex'>
                 <Button bg='lightblue' type="submit" onClick={handleClick} w='100%'> Add TODO item</Button>
               </Box>

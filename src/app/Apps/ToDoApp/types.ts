@@ -1,5 +1,5 @@
 export type ToDoItem = {
     title: string; 
-    priority: string
+  priority: number
     key: number;
   };

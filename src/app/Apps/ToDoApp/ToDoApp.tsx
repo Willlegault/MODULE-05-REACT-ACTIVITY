@@ -14,7 +14,7 @@ export default function ToDoApp () {
   const [todoList,setTodolist] = useState<ToDoItem[]>([])
   const [itemKey,setItemKey] = useState<number>(0)   // first unused key
 
-  function handleAdd (title:string, priority:string) {
+  function handleAdd (title:string, priority:number) {
     if (title === '') {return}   // ignore blank button presses
     setTodolist(todoList.concat({title: title, priority: priority, key: itemKey}))
     setItemKey(itemKey + 1)
