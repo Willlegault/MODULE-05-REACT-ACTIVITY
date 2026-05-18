@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import { Heading, VStack } from '@chakra-ui/react';
+import { Heading, VStack, Button } from '@chakra-ui/react';
 
 import { ToDoItem } from './types'
 import { ToDoItemEntryForm } from './ToDoItemEntryForm'
@@ -25,10 +25,16 @@ export default function ToDoApp () {
     setTodolist(newList)
   }
 
+  function handleSortByPriority() {
+    const sortedList = [...todoList].sort((a, b) => a.priority - b.priority)
+    setTodolist(sortedList)
+  }
+
   return (
   <VStack>
     <Heading>TODO List</Heading>
     <ToDoItemEntryForm onAdd={handleAdd}/>
+    <Button bg='lightblue' onClick={handleSortByPriority}>Sort by priority</Button>
     <ToDoListDisplay items={todoList} onDelete={handleDelete}/>
   </VStack>
   )
